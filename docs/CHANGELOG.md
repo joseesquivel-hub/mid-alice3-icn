@@ -80,3 +80,37 @@
 - Bar spacing: 2 mm implemented (from Ian), Antonio mentioned 1 mm — to confirm
 - Mechanical support structure not yet implemented (bars floating)
 - Filling factor correction (~2-8%) not yet modeled in simulation
+
+---
+
+## August 26, 2026 — Track Extrapolation Analysis
+
+### HitMap_O2.root
+- Generated from scratch using our validated geometry (A. Ortiz, Aug 2026)
+- 6880 bars: L0=3680 (16x10x23), L1=3200 (16x10x20)
+- Bar positions calculated analytically using Ian's polar formula with our radii
+- Bar pitch = 5.2 cm both layers; L0 sensor length = 49.9 cm, L1 = 61.75 cm
+
+### extrapolation.C
+- Relativistic helix extrapolation from L0 (R=301 cm) to L1 (R=311 cm)
+- Field B2 = -1.619 T in absorber; straight line between layers (no field)
+- Results: sigma~1.8 cm (X,Y,Z), no systematic bias, 94.4% in +/-5 cm window
+- Consistent with multiple scattering in 70 cm Fe absorber
+
+### extrapolation_digitized_v4.C
+- Digitization of L0 bar (X,Y center) and L1 bar (Z center)
+- Search algorithm: phi filter -> Z range filter -> minimum XY distance (L0)
+- Search algorithm: nearest stave in phi -> nearest bar in Z (L1)
+- Results: 92.6% in +/-5 cm window — digitization costs 1.8 percentage points
+- No bias after digitizing: means compatible with zero at <1.2 sigma
+
+### plot_residuos_v4.C
+- Final figure: blue=MC truth, red=digitized, green dashed lines at +/-5 cm
+- RMS and mean reported for all 6 distributions
+
+### Open questions / Next steps (Route B)
+- Model real Z uncertainty of L0 starting point (sigma~29 cm from bar length)
+- Current result uses MC truth Z as extrapolation starting point
+- ΔZ RMS slightly below prediction (1.22 vs 1.50 cm): attributed to
+  correlation between digitization error and residual — not a bug
+- Run with pp-like generator (currently particle gun only)
