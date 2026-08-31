@@ -77,7 +77,7 @@ MIDLayer::Stave::Stave(std::string staveName,
 {
   // nBars=-1 uses default calibrated for standard radii
   int effNBars = (nBars < 0) ? (!(mLayer % 2) ? 23 : 20) : nBars;
-  float moduleOffset = -effNBars * 5.2f / 2.f; // 5.2 = 2*barWidth + barSpacing
+  float moduleOffset = -effNBars * (2.f * 2.5f + 0.1f) / 2.f; // dynamic step = 2*barWidth + barSpacing
   // Staves are ideal shapes made of air including the modules, for now.
   LOGP(debug, "\t\tConstructing MIDStave: {} layer: {} at angle {} nBars={}", mName, mLayer, mRotAngle * TMath::RadToDeg(), effNBars);
   mModules.reserve(nModulesZ);
@@ -120,7 +120,7 @@ MIDLayer::Stave::Module::Module(std::string moduleName,
                           mStave,
                           mNumber,
                           iBar,
-                          -mNBars * 5.2f / 2.f,  // moduleOffset derived from nBars
+                          -mNBars * (2.f * mBarWidth + mBarSpacing) / 2.f, // dynamic step
                           !(mLayer % 2) ? 49.9f : 61.75f); // sensor length
   }
 }

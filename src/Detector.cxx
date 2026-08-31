@@ -154,11 +154,11 @@ void Detector::createGeometry()
     // Central segment: Rmax_abso=290 -> Layer0=301, Layer1=311, nMod=6, semi-dz=299.4/312 at Z=0
     // External segments: Rmax_abso=265 -> Layer0=276, Layer1=286, nMod=2, semi-dz=99.8/104 at Z=+-400
     constexpr float kAbsGap    = 11.f;
-    constexpr float kPitch     = 10.f;
+    constexpr float kPitch     = 1.f;
     constexpr float kRCen0     = 290.f + kAbsGap;          // 301 cm
-    constexpr float kRCen1     = kRCen0 + kPitch;          // 311 cm
+    constexpr float kRCen1     = kRCen0 + kPitch;          // 302 cm
     constexpr float kRExt0     = 265.f + kAbsGap;          // 276 cm
-    constexpr float kRExt1     = kRExt0 + kPitch;          // 286 cm
+    constexpr float kRExt1     = kRExt0 + kPitch;          // 277 cm
     mLayers.resize(6);
     // length = semi-length = nModulesZ x step (layer0: step=49.9cm, layer1: step=52cm)
     mLayers[0] = MIDLayer(0, "MIDLayer0_central",  kRCen0,  299.4f, 16, 0.f,    6); // 6 modules x 49.9 cm step
@@ -259,6 +259,7 @@ bool Detector::ProcessHits(FairVolume* vol)
     // Left as future work for hit digitization.
 
     if (physLay < 0) { return false; } // guard: sensor name did not match expected pattern
+    if (mTrackData.mEnergyLoss < 0.00015) { return false; } // E_dep cut: > 0.15 MeV (per Ian TrackerSD.cc)
     Hit* p = addHit(stack->GetCurrentTrackNumber(), physLay, mTrackData.mPositionStart.Vect(), positionStop.Vect(),
                     mTrackData.mMomentumStart.Vect(), mTrackData.mMomentumStart.E(), positionStop.T(),
                     mTrackData.mEnergyLoss, mTrackData.mTrkStatusStart, status);

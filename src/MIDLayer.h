@@ -38,7 +38,7 @@ class MIDLayer
                float sensorLength = 49.9f,
                float sensorWidth = 2.5f,
                float sensorThickness = 0.5f,
-               float sensorSpacing = 0.2f);
+               float sensorSpacing = 0.1f);
         void createSensor(TGeoVolume* motherVolume);
 
        private:
@@ -63,7 +63,7 @@ class MIDLayer
              int nBars = 23,
              float zOffset = -500.f,
              float barLength = 49.9f,
-             float barSpacing = 0.2f,
+             float barSpacing = 0.1f,
              float barWidth = 2.5f,
              float barThickness = 0.5f);
       void createModule(TGeoVolume* motherVolume);
