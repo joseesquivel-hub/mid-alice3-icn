@@ -114,3 +114,23 @@
 - ΔZ RMS slightly below prediction (1.22 vs 1.50 cm): attributed to
   correlation between digitization error and residual — not a bug
 - Run with pp-like generator (currently particle gun only)
+
+---
+
+## September 1, 2026 — Acceptance Analysis
+
+### Fix: BoxGun.number=1
+- Antonio identified that BoxGun.number was not set, defaulting to 10 muons/event
+- Correct command requires BoxGun.number=1 for single muon per event
+- Impact: hits/event from ~24 to 2.29 (consistent with prototype article: 2.7)
+
+### Correct simulation command:
+o2-sim -n 1000 --detectorList ALICE3 -g boxgen -m MI3 -m A3MAG -m A3ABSO \
+  --configKeyValues "align-geom.mDetectors=none;Alice3PassiveBase.mLayout=3;\
+Alice3PassiveBase.mDetLayout=2;MIDBase.mLayout=0;BoxGun.pdg=13;BoxGun.number=1;\
+BoxGun.eta[0]=-1.2;BoxGun.eta[1]=1.2;BoxGun.prange[0]=1.5;BoxGun.prange[1]=5"
+
+### Acceptance results (1000 events, g=1mm, 1.5-5 GeV, |eta|<1.2):
+- L0 OR L1:              99.2%
+- L0 AND L1:             97.3%
+- L0 AND L1, same stave: 96.8% — consistent with Antonio's epsilon^2=0.96

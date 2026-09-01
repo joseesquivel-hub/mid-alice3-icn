@@ -104,7 +104,7 @@ void acceptance_3def() {
   leg->Draw();
 
   TLatex tx; tx.SetNDC(); tx.SetTextSize(0.036);
-  tx.DrawLatex(0.13,0.88,"1000 #mu^{-}, 5-50 GeV, |#eta|<1.2 (preliminary)");
+  tx.DrawLatex(0.13,0.88,"1000 #mu^{-}, 1.5-5 GeV, |#eta|<1.2 (preliminary)");
 
   c->SaveAs("/tmp/acceptance_3def.png");
   printf("Guardado: /tmp/acceptance_3def.png\n");
